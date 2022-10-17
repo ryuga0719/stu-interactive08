@@ -1,0 +1,34 @@
+@use "./reboot";
+
+:root {
+  --background: "";
+  --mask-radius: "";
+  --chart-size: "100px";
+}
+
+.graph__outer {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.graph {
+  width: var(--chart-size);
+  height: var(--chart-size);
+  border-radius: 9999px;
+  // 中心の切り抜き
+  -webkit-mask-image: radial-gradient(
+    transparent 0%,
+    transparent var(--mask-radius),
+    white var(--mask-radius),
+    white
+  );
+  mask-image: radial-gradient(
+    transparent 0%,
+    transparent var(--mask-radius),
+    white var(--mask-radius),
+    white
+  );
+}
