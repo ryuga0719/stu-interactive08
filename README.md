@@ -38,9 +38,17 @@ const data = {
     chartSize: 100, // 円グラフのサイズ(%)
     data: [25, 50, 25, 75], // 数値データ
     backgroundColor: ["#ff7f7f", "#ff7fbf", "#7fffbf", "#7f7fff"], // 各データの円グラフの表示色
-    maskRadius: -1, // 中心をくり抜く
+    maskRadius: -1, // 中心をくり抜きたい場合は数値(px)で指定
   },
 };
+```
+
+円グラフの具体的なサイズはラップする要素で指定してください。
+
+```:html
+<div style="width:50vh; height:50vh;">
+  <div id="graph"></div> <!-- 円グラフは基本的にwidth,height共に100%になっているため -->
+</div>
 ```
 
 ### PieChart クラスのインスタンスを作成
