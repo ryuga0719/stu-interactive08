@@ -1,4 +1,7 @@
 import Colors from "./Colors";
+import Masks from "./Masks";
+import ConicGradient from "./ConicGradient";
+
 export default class PieChart {
   constructor(__target, __data) {
     this.target = __target; // グラフのDOM出力先
@@ -13,7 +16,10 @@ export default class PieChart {
     // console.log(this.colors);
 
     // グラフ描画用のgradientの文字列
-    this.gradient = this.generateGradientText(this.adjustedData, this.colors);
+    this.gradient = ConicGradient.generateGradientText(
+      this.adjustedData,
+      this.colors
+    );
     // console.log(this.gradient);
 
     // グラフのDOMの初期設定
@@ -55,53 +61,34 @@ export default class PieChart {
   }
 
   // データの累積比率を計算
-  calcCumulativeRatio(percentages) {
+  calcCumulativeRatio(ratios) {
     let cumulativeRatios = [];
     let cumulativeRatio = 0;
-    cumulativeRatios.push(0);
-    for (let i = 0; i < percentages.length - 1; i++) {
-      cumulativeRatio += Math.round(percentages[i]);
+    cumulativeRatios.push(0); // 開始点
+    for (let i = 0; i < ratios.length - 1; i++) {
+      cumulativeRatio += Math.round(ratios[i]);
       cumulativeRatios.push(cumulativeRatio); // conic-gradientの-境界値
       cumulativeRatios.push(cumulativeRatio); // conic-gradientの+境界値
     }
-    cumulativeRatios.push(100);
+    cumulativeRatios.push(100); // 終了点
     return cumulativeRatios;
   }
 
   // グラフの描画
   drawGraph() {
     this.setChartSize();
-    this.drawConicGradient(this.gradient);
+    ConicGradient.drawConicGradient(this.target, this.gradient);
 
     if (this.chartData.maskRadius) {
-      this.drawCenterMask();
+      Masks.drawCenterMask(this.target, this.chartData.maskRadius);
     }
   }
 
   // グラフのサイズを設定
   setChartSize() {
-    this.target.style.setProperty("--chart-size", this.chartData.chartSize);
-  }
-
-  // conic-gradient設定
-  drawConicGradient(gradient) {
     this.target.style.setProperty(
-      "background",
-      "conic-gradient(" + gradient + ")"
+      "--chart-size",
+      this.chartData.chartSize + "%"
     );
-  }
-
-  generateGradientText(data, colors) {
-    let text = "";
-    for (let i = 0; i < data.length; i++) {
-      text += colors[i] + " " + data[i] + "%,";
-    }
-    text = text.substring(0, text.length - 1);
-    return text;
-  }
-
-  // 中央のマスクの描画
-  drawCenterMask() {
-    this.target.style.setProperty("--mask-radius", this.chartData.maskRadius);
   }
 }

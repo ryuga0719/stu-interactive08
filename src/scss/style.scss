@@ -1,17 +1,24 @@
 @use "./reboot";
 
 :root {
-  --background: "";
-  --mask-radius: "";
-  --chart-size: "100px";
+  --mask-radius: "0px";
+  --chart-size: "100%";
 }
 
-.graph__outer {
+.container {
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.graph__wrapper {
+  width: 50vh;
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .graph {
