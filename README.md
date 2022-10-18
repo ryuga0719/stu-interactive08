@@ -22,14 +22,12 @@ html
 
 ```:html
 <div id="graph"></div>
-
 ```
 
 js
 
 ```:js
 const target = document.getElementById("graph");
-
 ```
 
 ### グラフの表示に必要なデータオブジェクトを指定
@@ -49,5 +47,4 @@ const data = {
 
 ```:js
 const pieChart = new PieChart(target, data);
-
 ```
