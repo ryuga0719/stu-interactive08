@@ -56,3 +56,6 @@ const data = {
 ```:js
 const pieChart = new PieChart(target, data);
 ```
+
+## Demo
+https://ryuga0719.github.io/stu-interactive08/
